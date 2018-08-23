@@ -9,7 +9,7 @@
 
 	<groupId>org.knowm.xchange</groupId>
 	<artifactId>xchange-parent</artifactId>
-	<version>4.3.10-SNAPSHOT</version>
+	<version>4.3.11-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>XChange</name>
@@ -32,6 +32,7 @@
 		<version.assertj>3.10.0</version.assertj>
 		<version.commons.io>2.6</version.commons.io>
 		<version.commons.lang3>3.7</version.commons.lang3>
+		<version.crypto>3.5.0</version.crypto>
 		<version.fasterxml>2.9.6</version.fasterxml>
 		<version.github.mmazi>2.0.2</version.github.mmazi>
 		<version.junit>4.12</version.junit>
@@ -40,7 +41,8 @@
 		<version.qos.logback>1.2.3</version.qos.logback>
 		<version.reflections>0.9.11</version.reflections>
 		<version.slf4j>1.7.25</version.slf4j>
-		<version.crypto>3.5.0</version.crypto>
+		<version.hibernate.core> 5.3.5.Final</version.hibernate.core>
+		<version.mysql.connector>8.0.12</version.mysql.connector>
 
 		<skipIntegrationTests>true</skipIntegrationTests>
 	</properties>
@@ -293,6 +295,18 @@
 
 	<!-- All children will have these dependencies -->
 	<dependencies>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>${version.hibernate.core}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${version.mysql.connector}</version>
+		</dependency>
 
 		<!-- Logging is through SLF4J -->
 		<dependency>
