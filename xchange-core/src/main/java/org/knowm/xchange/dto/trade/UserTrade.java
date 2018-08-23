@@ -3,6 +3,7 @@ package org.knowm.xchange.dto.trade;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
+import javax.persistence.*;
 import org.knowm.xchange.currency.Currency;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.Order.OrderType;
@@ -11,16 +12,17 @@ import org.knowm.xchange.service.trade.TradeService;
 import org.knowm.xchange.service.trade.params.TradeHistoryParams;
 
 /** Data object representing a user trade */
+@Entity
 public class UserTrade extends Trade {
 
   /** The id of the order responsible for execution of this trade */
-  private final String orderId;
+  @Id private final String orderId;
 
   /** The fee that was charged by the exchange for this trade. */
-  private final BigDecimal feeAmount;
+  @Column private final BigDecimal feeAmount;
 
   /** The currency in which the fee was charged. */
-  private final Currency feeCurrency;
+  @Column private final Currency feeCurrency;
 
   /**
    * This constructor is called to construct user's trade objects (in {@link
