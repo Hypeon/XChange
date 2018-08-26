@@ -4,11 +4,15 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
+import javax.persistence.*;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.Order.OrderType;
 import org.knowm.xchange.service.marketdata.MarketDataService;
 
 /** Data object representing a Trade */
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "trade_type", discriminatorType = DiscriminatorType.INTEGER)
 public class Trade implements Serializable {
 
   /** Did this trade result from the execution of a bid or a ask? */
@@ -27,7 +31,7 @@ public class Trade implements Serializable {
   protected final Date timestamp;
 
   /** The trade id */
-  protected final String id;
+  @Id protected final String id;
 
   /**
    * This constructor is called to create a public Trade object in {@link

@@ -13,16 +13,17 @@ import org.knowm.xchange.service.trade.params.TradeHistoryParams;
 
 /** Data object representing a user trade */
 @Entity
+@DiscriminatorValue("1")
 public class UserTrade extends Trade {
 
   /** The id of the order responsible for execution of this trade */
   @Id private final String orderId;
 
   /** The fee that was charged by the exchange for this trade. */
-  @Column private final BigDecimal feeAmount;
+  private final BigDecimal feeAmount;
 
   /** The currency in which the fee was charged. */
-  @Column private final Currency feeCurrency;
+  private final Currency feeCurrency;
 
   /**
    * This constructor is called to construct user's trade objects (in {@link
