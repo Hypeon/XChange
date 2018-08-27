@@ -17,7 +17,7 @@ import org.knowm.xchange.service.trade.params.TradeHistoryParams;
 public class UserTrade extends Trade {
 
   /** The id of the order responsible for execution of this trade */
-  @Id private final String orderId;
+  private final String orderId;
 
   /** The fee that was charged by the exchange for this trade. */
   private final BigDecimal feeAmount;
