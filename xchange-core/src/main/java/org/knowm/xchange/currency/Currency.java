@@ -1,6 +1,5 @@
 package org.knowm.xchange.currency;
 
-import javax.persistence.Entity;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collections;
@@ -9,13 +8,14 @@ import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import javax.persistence.*;
 
 /**
  * A Currency class roughly modeled after {@link java.util.Currency}. Each object retains the code
  * it was acquired with -- so {@link #getInstance}("BTC").{@link #getCurrencyCode}() will always be
  * "BTC", even though the proposed ISO 4217 code is "XBT"
  */
-@Entity
+@Embeddable
 public class Currency implements Comparable<Currency>, Serializable {
 
   private static final Map<String, Currency> currencies = new HashMap<>();
@@ -293,8 +293,10 @@ public class Currency implements Comparable<Currency>, Serializable {
   public static final Currency ELF = createCurrency("ELF", "aelf", null);
   public static final Currency STORJ = createCurrency("STORJ", "Storj", null);
   public static final Currency MOD = createCurrency("MOD", "Modum", null);
-  private final String code;
-  private final CurrencyAttributes attributes;
+
+  private String code;
+
+  @Embedded private CurrencyAttributes attributes;
 
   /** Public constructor. Links to an existing currency. */
   public Currency(String code) {
@@ -477,9 +479,11 @@ public class Currency implements Comparable<Currency>, Serializable {
     return comparison;
   }
 
+  @Embeddable
   private static class CurrencyAttributes implements Serializable {
 
-    public final Set<String> codes;
+    @ElementCollection public final Set<String> codes;
+
     public final String isoCode;
     public final String commonCode;
     public final String name;

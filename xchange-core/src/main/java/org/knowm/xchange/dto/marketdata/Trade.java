@@ -15,23 +15,31 @@ import org.knowm.xchange.service.marketdata.MarketDataService;
 @DiscriminatorColumn(name = "trade_type", discriminatorType = DiscriminatorType.INTEGER)
 public class Trade implements Serializable {
 
+  /** The trade id */
+  @Id protected String id;
+
   /** Did this trade result from the execution of a bid or a ask? */
-  protected final OrderType type;
+  @ManyToOne protected OrderType type;
 
   /** Amount that was traded */
-  protected final BigDecimal originalAmount;
+  protected BigDecimal originalAmount;
 
   /** The currency pair */
-  protected final CurrencyPair currencyPair;
+  @ManyToOne
+  @JoinColumn(name = "currency_pair_id")
+  @JoinColumns({
+    @JoinColumn(name = "currency_base_id", insertable = false, updatable = false),
+    @JoinColumn(name = "currency_counter_id", insertable = false, updatable = false)
+  })
+  protected CurrencyPair currencyPair;
 
   /** The price */
-  protected final BigDecimal price;
+  protected BigDecimal price;
 
   /** The timestamp of the trade according to the exchange's server, null if not provided */
-  protected final Date timestamp;
+  protected Date timestamp;
 
-  /** The trade id */
-  @Id protected final String id;
+  public Trade() {}
 
   /**
    * This constructor is called to create a public Trade object in {@link
@@ -59,6 +67,30 @@ public class Trade implements Serializable {
     this.price = price;
     this.timestamp = timestamp;
     this.id = id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  public void setType(OrderType type) {
+    this.type = type;
+  }
+
+  public void setOriginalAmount(BigDecimal originalAmount) {
+    this.originalAmount = originalAmount;
+  }
+
+  public void setCurrencyPair(CurrencyPair currencyPair) {
+    this.currencyPair = currencyPair;
+  }
+
+  public void setPrice(BigDecimal price) {
+    this.price = price;
+  }
+
+  public void setTimestamp(Date timestamp) {
+    this.timestamp = timestamp;
   }
 
   public OrderType getType() {

@@ -1,9 +1,9 @@
 package org.knowm.xchange.currency;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
-import javax.persistence.Entity;
 import java.io.Serializable;
+import java.util.Objects;
+import javax.persistence.*;
 
 /**
  * Value object to provide the following to API:
@@ -335,8 +335,17 @@ public class CurrencyPair implements Comparable<CurrencyPair>, Serializable {
   public static final CurrencyPair ETC_7D =
       new CurrencyPair(Currency.ETC, Currency.getInstance("7D"));
 
-  public final Currency base;
-  public final Currency counter;
+  @EmbeddedId private CurrencyPairPrimaryKey currencyPairPrimaryKey;
+
+  @ManyToOne
+  @JoinColumn(name = "currency_base_id")
+  public Currency base;
+
+  @JoinColumn(name = "currency_counter_id")
+  @ManyToOne
+  public Currency counter;
+
+  public CurrencyPair() {}
 
   /**
    * Full constructor In general the CurrencyPair.base is what you're wanting to buy/sell. The
@@ -380,6 +389,30 @@ public class CurrencyPair implements Comparable<CurrencyPair>, Serializable {
 
     this.base = Currency.getInstance(base);
     this.counter = Currency.getInstance(counter);
+  }
+
+  public void setCurrencyPairPrimaryKey(CurrencyPairPrimaryKey currencyPairPrimaryKey) {
+    this.currencyPairPrimaryKey = currencyPairPrimaryKey;
+  }
+
+  public void setBase(Currency base) {
+    this.base = base;
+  }
+
+  public void setCounter(Currency counter) {
+    this.counter = counter;
+  }
+
+  public Currency getBase() {
+    return base;
+  }
+
+  public Currency getCounter() {
+    return counter;
+  }
+
+  public CurrencyPairPrimaryKey getCurrencyPairPrimaryKey() {
+    return currencyPairPrimaryKey;
   }
 
   @Override
@@ -436,5 +469,47 @@ public class CurrencyPair implements Comparable<CurrencyPair>, Serializable {
   public int compareTo(CurrencyPair o) {
 
     return (base.compareTo(o.base) << 16) + counter.compareTo(o.counter);
+  }
+
+  @Embeddable
+  public class CurrencyPairPrimaryKey {
+    protected Currency base;
+    protected Currency counter;
+
+    public CurrencyPairPrimaryKey() {}
+
+    public CurrencyPairPrimaryKey(Currency base, Currency counter) {
+      this.base = base;
+      this.counter = counter;
+    }
+
+    public Currency getBase() {
+      return base;
+    }
+
+    public void setBase(Currency base) {
+      this.base = base;
+    }
+
+    public Currency getCounter() {
+      return counter;
+    }
+
+    public void setCounter(Currency counter) {
+      this.counter = counter;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+      if (this == o) return true;
+      if (o == null || getClass() != o.getClass()) return false;
+      CurrencyPairPrimaryKey that = (CurrencyPairPrimaryKey) o;
+      return Objects.equals(base, that.base) && Objects.equals(counter, that.counter);
+    }
+
+    @Override
+    public int hashCode() {
+      return Objects.hash(base, counter);
+    }
   }
 }

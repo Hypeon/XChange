@@ -3,7 +3,9 @@ package org.knowm.xchange.dto.trade;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
-import javax.persistence.*;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import org.knowm.xchange.currency.Currency;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.Order.OrderType;
@@ -15,15 +17,16 @@ import org.knowm.xchange.service.trade.params.TradeHistoryParams;
 @Entity
 @DiscriminatorValue("1")
 public class UserTrade extends Trade {
-
   /** The id of the order responsible for execution of this trade */
-  private final String orderId;
+  private String orderId;
 
   /** The fee that was charged by the exchange for this trade. */
-  private final BigDecimal feeAmount;
+  private BigDecimal feeAmount;
 
   /** The currency in which the fee was charged. */
-  private final Currency feeCurrency;
+  @ManyToOne private Currency feeCurrency;
+
+  public UserTrade() {}
 
   /**
    * This constructor is called to construct user's trade objects (in {@link
@@ -54,6 +57,18 @@ public class UserTrade extends Trade {
 
     this.orderId = orderId;
     this.feeAmount = feeAmount;
+    this.feeCurrency = feeCurrency;
+  }
+
+  public void setOrderId(String orderId) {
+    this.orderId = orderId;
+  }
+
+  public void setFeeAmount(BigDecimal feeAmount) {
+    this.feeAmount = feeAmount;
+  }
+
+  public void setFeeCurrency(Currency feeCurrency) {
     this.feeCurrency = feeCurrency;
   }
 
