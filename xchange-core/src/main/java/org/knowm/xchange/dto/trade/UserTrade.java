@@ -3,6 +3,7 @@ package org.knowm.xchange.dto.trade;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -24,7 +25,8 @@ public class UserTrade extends Trade {
   private BigDecimal feeAmount;
 
   /** The currency in which the fee was charged. */
-  @ManyToOne private Currency feeCurrency;
+  @ManyToOne(cascade = CascadeType.ALL)
+  private Currency feeCurrency;
 
   public UserTrade() {}
 

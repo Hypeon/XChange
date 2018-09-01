@@ -15,7 +15,7 @@ import javax.persistence.*;
  * it was acquired with -- so {@link #getInstance}("BTC").{@link #getCurrencyCode}() will always be
  * "BTC", even though the proposed ISO 4217 code is "XBT"
  */
-@Embeddable
+@Entity
 public class Currency implements Comparable<Currency>, Serializable {
 
   private static final Map<String, Currency> currencies = new HashMap<>();
@@ -294,9 +294,11 @@ public class Currency implements Comparable<Currency>, Serializable {
   public static final Currency STORJ = createCurrency("STORJ", "Storj", null);
   public static final Currency MOD = createCurrency("MOD", "Modum", null);
 
-  private String code;
+  @Id private String code;
 
   @Embedded private CurrencyAttributes attributes;
+
+  public Currency() {}
 
   /** Public constructor. Links to an existing currency. */
   public Currency(String code) {
@@ -439,6 +441,22 @@ public class Currency implements Comparable<Currency>, Serializable {
     return attributes.name;
   }
 
+  public String getCode() {
+    return code;
+  }
+
+  public void setCode(String code) {
+    this.code = code;
+  }
+
+  public CurrencyAttributes getAttributes() {
+    return attributes;
+  }
+
+  public void setAttributes(CurrencyAttributes attributes) {
+    this.attributes = attributes;
+  }
+
   @Override
   public String toString() {
 
@@ -482,12 +500,14 @@ public class Currency implements Comparable<Currency>, Serializable {
   @Embeddable
   private static class CurrencyAttributes implements Serializable {
 
-    @ElementCollection public final Set<String> codes;
+    @ElementCollection public Set<String> codes;
 
-    public final String isoCode;
-    public final String commonCode;
-    public final String name;
-    public final String unicode;
+    public String isoCode;
+    public String commonCode;
+    public String name;
+    public String unicode;
+
+    public CurrencyAttributes() {}
 
     public CurrencyAttributes(
         String commonCode, String name, String unicode, String... alternativeCodes) {
@@ -537,6 +557,46 @@ public class Currency implements Comparable<Currency>, Serializable {
       } else {
         this.unicode = commonCode;
       }
+    }
+
+    public Set<String> getCodes() {
+      return codes;
+    }
+
+    public void setCodes(Set<String> codes) {
+      this.codes = codes;
+    }
+
+    public String getIsoCode() {
+      return isoCode;
+    }
+
+    public void setIsoCode(String isoCode) {
+      this.isoCode = isoCode;
+    }
+
+    public String getCommonCode() {
+      return commonCode;
+    }
+
+    public void setCommonCode(String commonCode) {
+      this.commonCode = commonCode;
+    }
+
+    public String getName() {
+      return name;
+    }
+
+    public void setName(String name) {
+      this.name = name;
+    }
+
+    public String getUnicode() {
+      return unicode;
+    }
+
+    public void setUnicode(String unicode) {
+      this.unicode = unicode;
     }
 
     @Override

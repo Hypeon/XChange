@@ -19,18 +19,14 @@ public class Trade implements Serializable {
   @Id protected String id;
 
   /** Did this trade result from the execution of a bid or a ask? */
-  @ManyToOne protected OrderType type;
+  @Enumerated(EnumType.STRING)
+  protected OrderType type;
 
   /** Amount that was traded */
   protected BigDecimal originalAmount;
 
   /** The currency pair */
-  @ManyToOne
-  @JoinColumn(name = "currency_pair_id")
-  @JoinColumns({
-    @JoinColumn(name = "currency_base_id", insertable = false, updatable = false),
-    @JoinColumn(name = "currency_counter_id", insertable = false, updatable = false)
-  })
+  @ManyToOne(cascade = CascadeType.ALL)
   protected CurrencyPair currencyPair;
 
   /** The price */
