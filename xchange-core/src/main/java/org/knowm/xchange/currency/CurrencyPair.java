@@ -334,7 +334,9 @@ public class CurrencyPair implements Comparable<CurrencyPair>, Serializable {
   public static final CurrencyPair ETC_7D =
       new CurrencyPair(Currency.ETC, Currency.getInstance("7D"));
 
-  @Id public int id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  public Long id;
 
   @ManyToOne(cascade = CascadeType.ALL)
   public Currency base;
@@ -388,11 +390,11 @@ public class CurrencyPair implements Comparable<CurrencyPair>, Serializable {
     this.counter = Currency.getInstance(counter);
   }
 
-  public int getId() {
+  public Long getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public void setId(Long id) {
     this.id = id;
   }
 
