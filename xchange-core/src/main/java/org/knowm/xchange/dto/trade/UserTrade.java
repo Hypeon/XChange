@@ -16,7 +16,7 @@ import org.knowm.xchange.service.trade.params.TradeHistoryParams;
 
 /** Data object representing a user trade */
 @Entity
-@DiscriminatorValue("1")
+@DiscriminatorValue("USER_TRADE")
 public class UserTrade extends Trade {
   /** The id of the order responsible for execution of this trade */
   private String orderId;

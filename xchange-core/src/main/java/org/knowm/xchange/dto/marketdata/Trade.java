@@ -12,7 +12,7 @@ import org.knowm.xchange.service.marketdata.MarketDataService;
 /** Data object representing a Trade */
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "trade_type", discriminatorType = DiscriminatorType.INTEGER)
+@DiscriminatorColumn(name = "trade_category", discriminatorType = DiscriminatorType.STRING)
 public class Trade implements Serializable {
 
   /** The trade id */
