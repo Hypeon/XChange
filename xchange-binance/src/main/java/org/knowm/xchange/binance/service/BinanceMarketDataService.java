@@ -122,7 +122,7 @@ public class BinanceMarketDataService extends BinanceMarketDataServiceRaw
                         pair,
                         at.price,
                         at.getTimestamp(),
-                        Long.toString(at.aggregateTradeId)))
+                        at.aggregateTradeId))
             .collect(Collectors.toList());
     return new Trades(trades, TradeSortType.SortByTimestamp);
   }
