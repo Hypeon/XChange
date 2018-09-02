@@ -339,9 +339,11 @@ public class CurrencyPair implements Comparable<CurrencyPair>, Serializable {
   public Long id;
 
   @ManyToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "base_currency_id")
   public Currency base;
 
   @ManyToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "counter_currency_id")
   public Currency counter;
 
   public CurrencyPair() {}

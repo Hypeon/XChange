@@ -23,11 +23,12 @@ public class Trade implements Serializable {
   protected OrderType type;
 
   /** Amount that was traded */
-  @Column(scale = 2)
+  @Column(name = "original_amount", scale = 2)
   protected BigDecimal originalAmount;
 
   /** The currency pair */
   @ManyToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "currency_pair_id")
   protected CurrencyPair currencyPair;
 
   /** The price */

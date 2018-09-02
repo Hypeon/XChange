@@ -512,10 +512,16 @@ public class Currency implements Comparable<Currency>, Serializable {
   @Embeddable
   private static class CurrencyAttributes implements Serializable {
 
-    @ElementCollection public Set<String> codes;
+    @ElementCollection
+    @CollectionTable(name = "currency_codes")
+    public Set<String> codes;
 
+    @Column(name = "iso_code")
     public String isoCode;
+
+    @Column(name = "common_code")
     public String commonCode;
+
     public String name;
     public String unicode;
 

@@ -16,14 +16,16 @@ import org.knowm.xchange.service.trade.params.TradeHistoryParams;
 @DiscriminatorValue("USER_TRADE")
 public class UserTrade extends Trade {
   /** The id of the order responsible for execution of this trade */
+  @Column(name = "order_id")
   private Long orderId;
 
   /** The fee that was charged by the exchange for this trade. */
-  @Column(precision = 9, scale = 8)
+  @Column(name = "fee_amount", precision = 9, scale = 8)
   private BigDecimal feeAmount;
 
   /** The currency in which the fee was charged. */
   @ManyToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "fee_currency_id")
   private Currency feeCurrency;
 
   public UserTrade() {}
