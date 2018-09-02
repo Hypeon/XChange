@@ -23,6 +23,7 @@ public class Trade implements Serializable {
   protected OrderType type;
 
   /** Amount that was traded */
+  @Column(scale = 2)
   protected BigDecimal originalAmount;
 
   /** The currency pair */
@@ -30,6 +31,7 @@ public class Trade implements Serializable {
   protected CurrencyPair currencyPair;
 
   /** The price */
+  @Column(precision = 9, scale = 8)
   protected BigDecimal price;
 
   /** The timestamp of the trade according to the exchange's server, null if not provided */

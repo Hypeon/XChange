@@ -3,10 +3,7 @@ package org.knowm.xchange.dto.trade;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
-import javax.persistence.CascadeType;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import org.knowm.xchange.currency.Currency;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.Order.OrderType;
@@ -22,6 +19,7 @@ public class UserTrade extends Trade {
   private String orderId;
 
   /** The fee that was charged by the exchange for this trade. */
+  @Column(precision = 9, scale = 8)
   private BigDecimal feeAmount;
 
   /** The currency in which the fee was charged. */
