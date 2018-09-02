@@ -294,7 +294,11 @@ public class Currency implements Comparable<Currency>, Serializable {
   public static final Currency STORJ = createCurrency("STORJ", "Storj", null);
   public static final Currency MOD = createCurrency("MOD", "Modum", null);
 
-  @Id private String code;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+
+  private String code;
 
   @Embedded private CurrencyAttributes attributes;
 
@@ -455,6 +459,14 @@ public class Currency implements Comparable<Currency>, Serializable {
 
   public void setAttributes(CurrencyAttributes attributes) {
     this.attributes = attributes;
+  }
+
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
   }
 
   @Override

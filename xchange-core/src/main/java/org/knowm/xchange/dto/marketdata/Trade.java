@@ -16,7 +16,7 @@ import org.knowm.xchange.service.marketdata.MarketDataService;
 public class Trade implements Serializable {
 
   /** The trade id */
-  @Id protected String id;
+  @Id protected Long id;
 
   /** Did this trade result from the execution of a bid or a ask? */
   @Enumerated(EnumType.STRING)
@@ -57,7 +57,7 @@ public class Trade implements Serializable {
       CurrencyPair currencyPair,
       BigDecimal price,
       Date timestamp,
-      String id) {
+      Long id) {
 
     this.type = type;
     this.originalAmount = originalAmount;
@@ -67,7 +67,7 @@ public class Trade implements Serializable {
     this.id = id;
   }
 
-  public void setId(String id) {
+  public void setId(Long id) {
     this.id = id;
   }
 
@@ -116,7 +116,7 @@ public class Trade implements Serializable {
     return timestamp;
   }
 
-  public String getId() {
+  public Long getId() {
 
     return id;
   }
@@ -164,7 +164,7 @@ public class Trade implements Serializable {
     protected CurrencyPair currencyPair;
     protected BigDecimal price;
     protected Date timestamp;
-    protected String id;
+    protected Long id;
 
     public static Builder from(Trade trade) {
       return new Builder()
@@ -206,7 +206,7 @@ public class Trade implements Serializable {
       return this;
     }
 
-    public Builder id(String id) {
+    public Builder id(Long id) {
 
       this.id = id;
       return this;

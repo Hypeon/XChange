@@ -16,7 +16,7 @@ import org.knowm.xchange.service.trade.params.TradeHistoryParams;
 @DiscriminatorValue("USER_TRADE")
 public class UserTrade extends Trade {
   /** The id of the order responsible for execution of this trade */
-  private String orderId;
+  private Long orderId;
 
   /** The fee that was charged by the exchange for this trade. */
   @Column(precision = 9, scale = 8)
@@ -48,8 +48,8 @@ public class UserTrade extends Trade {
       CurrencyPair currencyPair,
       BigDecimal price,
       Date timestamp,
-      String id,
-      String orderId,
+      Long id,
+      Long orderId,
       BigDecimal feeAmount,
       Currency feeCurrency) {
 
@@ -60,7 +60,7 @@ public class UserTrade extends Trade {
     this.feeCurrency = feeCurrency;
   }
 
-  public void setOrderId(String orderId) {
+  public void setOrderId(Long orderId) {
     this.orderId = orderId;
   }
 
@@ -72,7 +72,7 @@ public class UserTrade extends Trade {
     this.feeCurrency = feeCurrency;
   }
 
-  public String getOrderId() {
+  public Long getOrderId() {
 
     return orderId;
   }
@@ -131,7 +131,7 @@ public class UserTrade extends Trade {
 
   public static class Builder extends Trade.Builder {
 
-    protected String orderId;
+    protected Long orderId;
     protected BigDecimal feeAmount;
     protected Currency feeCurrency;
 
@@ -174,11 +174,11 @@ public class UserTrade extends Trade {
     }
 
     @Override
-    public Builder id(String id) {
+    public Builder id(Long id) {
       return (Builder) super.id(id);
     }
 
-    public Builder orderId(String orderId) {
+    public Builder orderId(Long orderId) {
       this.orderId = orderId;
       return this;
     }
